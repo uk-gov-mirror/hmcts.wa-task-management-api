@@ -111,13 +111,13 @@ public class PostTaskSearchControllerTest extends SpringBootFunctionalBaseTest {
     public void should_return_a_200_with_search_results_based_on_jurisdiction_location_and_state_filters() {
 
         int tasksToConfigure = 2;
-        String[] ccdIds = new String[tasksToConfigure];
+        String[] caseIds = new String[tasksToConfigure];
 
         String[] locationIds = {"17595", "17594"};
 
         for (int i = 0; i < tasksToConfigure; i++) {
-            String ccdId = caseIdGenerator.generate();
-            ccdIds[i] = ccdId;
+            String caseId = caseIdGenerator.generate();
+            caseIds[i] = caseId;
 
             CamundaProcessVariables processVariables = processVariables()
                 .withProcessVariable("jurisdiction", "IA")
@@ -127,9 +127,9 @@ public class PostTaskSearchControllerTest extends SpringBootFunctionalBaseTest {
                 .build();
 
             List<CamundaTask> tasks = given
-                .iCreateATaskWithCaseId(ccdId)
+                .iCreateATaskWithCaseId(caseId)
                 .and()
-                .iRetrieveATaskWithProcessVariableFilter("ccdId", ccdId);
+                .iRetrieveATaskWithProcessVariableFilter("caseId", caseId);
 
             String taskId = tasks.get(0).getId();
 
